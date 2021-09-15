@@ -1,0 +1,253 @@
+/**************************AddressBook**********************\
+
+
+UC1 -> Create database AddressBook;
+   addressbook database is created.
+
+UC2-> mysql> create table addressBook( id integer(10)auto_increment,firstName varchar(25) not null , lastName varchar(25) not null, address varchar(50) not null ,city varchar(25) not null, state varchar(25) not null,zip integer(6) not null, phoneNumber integer(10) not null,primary key (id));
+
+
+mysql> describe addressbook;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id          | int(10)     | NO   | PRI | NULL    | auto_increment |
+| firstName   | varchar(25) | NO   |     | NULL    |                |
+| lastName    | varchar(25) | NO   |     | NULL    |                |
+| address     | varchar(50) | NO   |     | NULL    |                |
+| city        | varchar(25) | NO   |     | NULL    |                |
+| state       | varchar(25) | NO   |     | NULL    |                |
+| zip         | int(6)      | NO   |     | NULL    |                |
+| phoneNumber | int(10)     | NO   |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.20 sec)
+
+
+UC3->
+ mysql> insert into addressbook(firstName,lastName,address,city,state,zip,phoneNumber) values("kshitija","patil","mirjole","ratnagiri","maharastra",415639,987654321),("amruta","murkar","bhatye","ratnagiri","maharastra",415612,87654378),("anu
+shka","pawar","partawane","ratnagiri","maharastra",467890,65432678);
+
+mysql> select * from addressbook;
++----+-----------+----------+-----------+-----------+------------+--------+-----
+--------+
+| id | firstName | lastName | address   | city      | state      | zip    | phon
+eNumber |
++----+-----------+----------+-----------+-----------+------------+--------+-----
+--------+
+|  1 | kshitija  | patil    | mirjole   | ratnagiri | maharastra | 415639 |   98
+7654321 |
+|  2 | amruta    | murkar   | bhatye    | ratnagiri | maharastra | 415612 |    8
+7654378 |
+|  3 | anushka   | pawar    | partawane | ratnagiri | maharastra | 467890 |    6
+5432678 |
++----+-----------+----------+-----------+-----------+------------+--------+-----
+--------+
+3 rows in set (0.03 sec)
+
+UC4->
+
+mysql> update addressbook set zip=405123 where firstName="anushka";
+Query OK, 1 row affected (0.27 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbook;
++----+-----------+----------+-----------+-----------+------------+--------+-----
+--------+
+| id | firstName | lastName | address   | city      | state      | zip    | phon
+eNumber |
++----+-----------+----------+-----------+-----------+------------+--------+-----
+--------+
+|  1 | kshitija  | patil    | mirjole   | ratnagiri | maharastra | 415639 |   98
+7654321 |
+|  2 | amruta    | murkar   | bhatye    | ratnagiri | maharastra | 415612 |    8
+7654378 |
+|  3 | anushka   | pawar    | partawane | ratnagiri | maharastra | 405123 |    6
+5432678 |
++----+-----------+----------+-----------+-----------+------------+--------+-----
+--------+
+3 rows in set (0.00 sec)
+
+UC5->
+
+mysql> delete from addressbook where firstName="anushka";
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from addressbook;
++----+-----------+----------+---------+-----------+------------+--------+-------
+------+
+| id | firstName | lastName | address | city      | state      | zip    | phoneN
+umber |
++----+-----------+----------+---------+-----------+------------+--------+-------
+------+
+|  1 | kshitija  | patil    | mirjole | ratnagiri | maharastra | 415639 |   9876
+54321 |
+|  2 | amruta    | murkar   | bhatye  | ratnagiri | maharastra | 415612 |    876
+54378 |
++----+-----------+----------+---------+-----------+------------+--------+-------
+------+
+2 rows in set (0.00 sec)
+
+
+UC 6->
+
+
+mysql> select firstName,lastName from addressbook where city="ratnagiri" or state="maharastra";
++-----------+----------+
+| firstName | lastName |
++-----------+----------+
+| kshitija  | patil    |
+| amruta    | murkar   |
++-----------+----------+
+2 rows in set (0.06 sec)
+
+
+UC 7->
+
+mysql> select count(city) from addressbook where city="ratnagiri" and state="maharastra";
++-------------+
+| count(city) |
++-------------+
+|           2 |
++-------------+
+1 row in set (0.00 sec)
+
+UC8->
++----+-----------+----------+-----------+-----------+------------+--------+-----
+--------+
+| id | firstName | lastName | address   | city      | state      | zip    | phon
+eNumber |
++----+-----------+----------+-----------+-----------+------------+--------+-----
+--------+
+|  2 | amruta    | murkar   | bhatye    | ratnagiri | maharastra | 415612 |    8
+7654378 |
+|  6 | anushka   | pawar    | partawane | mumbai    | maharastra | 467890 |    8
+9546123 |
+|  1 | kshitija  | patil    | mirjole   | mumbai    | maharastra | 415639 |   98
+7654321 |
+|  4 | nihal     | patil    | mirjole   | ratnagiri | maharastra |   1639 |   78
+9456321 |
+|  5 | onkar     | shinde   | helwalk   | satara    | maharastra | 615850 |    7
+8541238 |
++----+-----------+----------+-----------+-----------+------------+--------+-----
+--------+
+
+
+mysql> select firstName,lastName from addressbook where city="ratnagiri" order b
+y firstName;
++-----------+----------+
+| firstName | lastName |
++-----------+----------+
+| amruta    | murkar   |
+| nihal     | patil    |
++-----------+----------+
+
+UC9 ->
+mysql> alter table addressbook add type varchar(25) after lastName;
+Query OK, 0 rows affected (2.46 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from addressbook;
++----+-----------+----------+------+-----------+-----------+------------+-------
+-+-------------+
+| id | firstName | lastName | type | address   | city      | state      | zip
+ | phoneNumber |
++----+-----------+----------+------+-----------+-----------+------------+-------
+-+-------------+
+|  1 | kshitija  | patil    | NULL | mirjole   | mumbai    | maharastra | 415639
+ |   987654321 |
+|  2 | amruta    | murkar   | NULL | bhatye    | ratnagiri | maharastra | 415612
+ |    87654378 |
+|  4 | nihal     | patil    | NULL | mirjole   | ratnagiri | maharastra |   1639
+ |   789456321 |
+|  5 | onkar     | shinde   | NULL | helwalk   | satara    | maharastra | 615850
+ |    78541238 |
+|  6 | anushka   | pawar    | NULL | partawane | mumbai    | maharastra | 467890
+ |    89546123 |
++----+-----------+----------+------+-----------+-----------+------------+-------
+-+-------------+
+
+mysql> update addressbook set type="friend" where firstname="amruta" or firstNam
+e="anushka";
+Query OK, 2 rows affected (0.16 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update addressbook set type="family" where firstname="nihal" or firstName
+="kshitija";;
+Query OK, 2 rows affected (0.21 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+
+
+mysql> update addressbook set type="profession" where firstName="onkar";
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select firstName,lastName,type from addressbook;
++-----------+----------+------------+
+| firstName | lastName | type       |
++-----------+----------+------------+
+| kshitija  | patil    | family     |
+| amruta    | murkar   | friend     |
+| nihal     | patil    | family     |
+| onkar     | shinde   | profession |
+| anushka   | pawar    | friend     |
++-----------+----------+------------+
+5 rows in set (0.00 sec)
+
+
+UC10->
+mysql> select count(type) from addressbook;
++-------------+
+| count(type) |
++-------------+
+|           5 |
++-------------+
+mysql> select count(type) from addressbook group by type;
++-------------+
+| count(type) |
++-------------+
+|           2 |
+|           2 |
+|           1 |
++-------------+
+3 rows in set (0.06 sec)
+UC11->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
