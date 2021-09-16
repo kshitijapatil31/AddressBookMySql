@@ -214,24 +214,78 @@ mysql> select count(type) from addressbook group by type;
 UC11->
 
 
+UC12->
+mysql> create table addressBookNew(addressBookId int not null auto_increment, addressBookName varchar(20) not null,primary key (addressBookId));
+Query OK, 0 rows affected (0.44 sec)
+
+mysql> insert into addressBookNew (addressBookName,type) values("book1",),("book2"),("
+book3");
+-----
+mysql> create table personContact( personId int not null auto_increment, firstName varchar(25) not null ,lastName varchar(25) not null,phoneNo int(10) not null,emailId varchar(200) not null, primary key (personId));
+
+mysql> alter table personcontact add column addressBookId int(10) not null;
+
+mysql> alter table personContact add foreign key (addressBookId) references addressBookNew (addressBookId);
+
+
+mysql> insert into personContact (firstName,lastName,phoneNo,emailId,addressBookId)values("nihal","patil",983452118,"nihal32@gmaul.com",2),("kshitija"  ,"patil",70284545,"ksh@gmail.com",1),("aarvi","chavan",75881345,"aarvich2@gmail.co",2("sharvin","chavan"  ,94049073,"chavanShar45@gma.com",1);
+
+mysql> alter table personcontact add column type varchar(200) not null;
+
+mysql> update personContact set type="friend" where firstName="aarvi" or firstName="kshitija";
+
+
+mysql> update personContact set type="family" where firstName="nihal";
+
+
+mysql> update personContact set type="profession"  where firstName="sharvin";
+
+mysql> create table address (addressId int (10) not null auto_increment,city varchar(200) not null,state varchar(200) not null,zipCode int(10) not null,primarykey (addressId));
 
 
 
+mysql> insert into address (city,state,zipCode) values("ratnagiri","maharastra",415639),("mumbai","maharastra",6881007),("newdelhi","delhi",008670), ("jaipur","rajasthan",894501);
 
 
+mysql> select * from address;
+
+mysql> alter table personContact add column addressId int(10);
+
+mysql> alter table personContact add foreign key (addressId) references address(addressId);
 
 
+mysql> describe personContact;
 
 
+mysql> select * from personContact;
 
 
+mysql> update personContact set addressId=1 where firstName="nihal";
 
 
+mysql> update personContact set addressId=3 where firstName="sharvin";
 
 
+mysql> update personContact set addressId=4 where firstName="kshitija";
 
 
+mysql> update personContact set addressId=2 where firstName="aarvi";
 
+
+mysql> select * from personContact;
+
+
+UC12->
+
+mysql> select count(city) from personContact, address where personContact.addressId=address.addressId;
+
+mysql> select firstName ,lastName,city from personContact,address where personCo
+ntact.addressId=address.addressId;
+
+
+mysql> select firstName ,lastname from personContact order by firstName;
+
+mysql> select count(firstName) from personContact;
 
 
 
